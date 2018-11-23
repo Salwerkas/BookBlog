@@ -9,10 +9,10 @@
 	{% endif %}
 
 	<nav>
-		Microblog: 
+		Bookblog: 
 		<a href="{{ url_for('index') }}">Home</a>
-		<a href='#''>Books</a>
-		<a href="#">Login</a>
+		<a href="{{ url_for('show_books') }}">Books</a>
+		<a href="{{ url_for('login') }}">Login</a>
 		<a href="#">Logout</a>
 	</nav>
 </head>
