@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1> Spis ksiazek</h1>
+<!--   <h1> Spis ksiazek</h1>
   <style type="text/css">
     button {
       width: 100px;
@@ -11,6 +11,16 @@
       background-color: #4CAF50;
       text-align: center;
     }
-  </style>
-  Tutaj bedzie spis ksiazek
+  </style> -->
+
+<h1> List of books</h1>
+
+
+{% for b in books %}
+<div id="book-container">
+    {{ b.title }}
+    <div><p>{{ b.description }}</p></div>
+    <br>
+</div>
+{% endfor %}
 {% endblock %}

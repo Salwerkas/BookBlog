@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for
 from app import app
-from app.models import User
+from app.models import User, Book
 from app.forms import LoginForm,RegistrationForm
 from flask_login import current_user, login_user,logout_user
 from flask import request, make_response
@@ -14,7 +14,8 @@ def index():
 
 @app.route('/show_books', methods=['GET', 'POST'])
 def show_books():
-    return render_template('books.html', title='Books')
+	books = Book.query.all()
+	return render_template('books.html', title='Books', books=books)
 
 @app.route('/login', methods=['GET','POST'])
 def login():
