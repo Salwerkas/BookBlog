@@ -1,26 +1,31 @@
-{% extends "base.html" %}
+{% extends "bootstrap/base.html" %}
 {% block content %}
-<!--   <h1> Spis ksiazek</h1>
-  <style type="text/css">
-    button {
-      width: 100px;
-      height: 15px;
-      border: none;
-      cursor: pointer;
-      display: inline-block;
-      background-color: #4CAF50;
-      text-align: center;
-    }
-  </style> -->
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a class="nav-link active" href="{{ url_for('index') }}">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{ url_for('show_books') }}">Books</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+  </li>
+    <li class="nav-item">
+    <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+  </li>
 
-<h1> List of books</h1>
+</ul>
 
-
+<div class="card text-center">
+  <div class="card-header">
+    <span class="badge badge-secondary"><center><h1> List of books </h1></center></span>
+  </div>
+</div>
 {% for b in books %}
-<div id="book-container">
-    {{ b.title }}
+<center>
+    <b>{{ b.title }}</b>
     <div><p>{{ b.description }}</p></div>
     <br>
-</div>
+</center>
 {% endfor %}
 {% endblock %}
