@@ -18,6 +18,14 @@ class User(UserMixin,db.Model):
 	def __repr__(self):
 		return '<User {}>'.format(self.username)
 
+
+class Book(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	title = db.Column(db.String(255), index=True)
+	description = db.Column(db.String(255))
+	author = db.Column(db.String(255))
+	pages = db.Column(db.Integer)
+
 @login.user_loader
 def load_user(id):
 	return User.query.get(int(id))
