@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField,IntegerField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
+from wtforms.widgets import TextArea
 from app.models import User
 
 
@@ -28,3 +29,11 @@ class RegistrationForm(FlaskForm):
 		user = User.query.filter_by(email=email.data).first()
 		if user is not None:
 			raise ValidationError('Please use a different email address')
+
+
+class AddBookForm(FlaskForm):
+	title = StringField('Title', validators=[DataRequired()])
+	author = StringField('Author', validators=[DataRequired()])
+	description = StringField('Description', widget=TextArea(), validators=[DataRequired()])
+	pages = IntegerField('Pages', validators=[DataRequired()])
+	submit = SubmitField('Add')

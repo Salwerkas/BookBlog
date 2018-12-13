@@ -20,6 +20,7 @@
   <div class="card-header">
     <span class="badge badge-secondary"><center><h1> List of books </h1></center></span>
   </div>
+  <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for('add_book') }}';">Add new book</button>
 </div>
 {% for b in books %}
 <center>

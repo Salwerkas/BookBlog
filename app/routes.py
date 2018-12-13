@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for
 from app import app
 from app.models import User, Book
-from app.forms import LoginForm,RegistrationForm
+from app.forms import LoginForm,RegistrationForm, AddBookForm
 from flask_login import current_user, login_user,logout_user
 from flask import request, make_response
 from app import db
@@ -38,6 +38,23 @@ def login():
 			return resp
 		return redirect(next_page)
 	return render_template('login.html', title='Sign In', form=form)
+
+
+
+@app.route('/add_book', methods=['GET', 'POST'])
+def add_book():
+	if current_user.is_authenticated:
+		form = AddBookForm()
+		if form.validate_on_submit():
+			added_book = Book(title=form.title.data, description=form.description.data,
+				author=form.author.data, pages=form.pages.data)
+			db.session.add(added_book)
+			db.session.commit()
+			flash('Book has been added')
+			return redirect(url_for('show_books'))
+
+		return render_template('add_books.html', title='Add Book', form=form)
+	return redirect(url_for('login'))
 
 @app.route('/logout')
 def logout():
