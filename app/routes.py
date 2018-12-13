@@ -56,6 +56,14 @@ def add_book():
 		return render_template('add_books.html', title='Add Book', form=form)
 	return redirect(url_for('login'))
 
+
+
+@app.route('/detail_book/<title>')
+def detail_book(title):
+	book = Book.query.filter_by(title=title).first_or_404()
+	return render_template('detail_book.html', book=book)
+
+
 @app.route('/logout')
 def logout():
 	logout_user()
