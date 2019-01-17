@@ -83,11 +83,12 @@ def logout():
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
-    if request.method == 'POST':
-        user = User(username=request.form['username'], email=request.form['email'])
-        user.set_password(request.form['password'])
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data, email=form.email.data)
+        user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
         flash('Registered')
         return redirect(url_for('login'))
-    return render_template('register.html', title='Register')
+    return render_template('register.html', title='Register', form=form)
