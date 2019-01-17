@@ -6,13 +6,26 @@
 
 <center>Sign In</center>
 
-<form action="/login" method="post">
-<div class="login">
-    <input type="text" placeholder="Username" id="username" name="username">  
-  <input type="password" placeholder="password" id="password" name="password">  
-  <input type="submit" value="Sign In">
-</div>
-<div class="shadow"></div>
+	<form action="" method="post" novalidate>
+		<div class="login">
+		{{ form.hidden_tag() }}
+		<p>
+			{{ form.username.label }}<br>
+			{{ form.username(size=32) }}<br>
+			{% for error in form.username.errors %}
+			<span style="color: red;">[{{ error }}]</span>
+			{% endfor %}
+		</p>
+		<p>
+			{{ form.password.label }}<br>
+			{{ form.password(size=32) }}<br>
+			{% for error in form.password.errors %}
+			<span style="color: red;">[{{ error }}]</span>
+			{% endfor %}
+		</p>
+		<p>{{ form.submit() }}</p>
+	</div>
+	<div class="shadow"></div>
 </form>
 	
 
