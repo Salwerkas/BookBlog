@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for b in books %}
+
+	{{b.title}} <button>Delete this book</button><br>
+
+{% endfor %}
+
+
+{% endblock %}

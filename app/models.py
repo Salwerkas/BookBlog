@@ -3,6 +3,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from app import login
 from app import db
+from flask_login import LoginManager
+from app import admin
+
+from flask_admin.contrib.sqla import ModelView
+
 
 
 class User(UserMixin, db.Model):
@@ -27,6 +32,9 @@ class Book(db.Model):
 	description = db.Column(db.String(255))
 	author = db.Column(db.String(255))
 	pages = db.Column(db.Integer)
+
+admin.add_view(ModelView(Book, db.session))
+admin.add_view(ModelView(User, db.session))
 
 
 
