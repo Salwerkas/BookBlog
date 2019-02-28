@@ -33,8 +33,20 @@ class Book(db.Model):
 	author = db.Column(db.String(255))
 	pages = db.Column(db.Integer)
 
+
+class Opinion(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	body = db.Column(db.String(140))
+	timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+	book_id = db.Column(db.Integer, db.ForeignKey('book.id'))
+
+	def __repr__(self):
+		return '<Post {}'.format(self.body)
+
 admin.add_view(ModelView(Book, db.session))
 admin.add_view(ModelView(User, db.session))
+admin.add_view(ModelView(Opinion, db.session))
 
 
 

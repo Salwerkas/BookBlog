@@ -3,7 +3,7 @@ from app import app
 from app.forms import LoginForm
 from flask_login import current_user, login_user
 from flask_login import logout_user
-from app.models import User, Book
+from app.models import User, Book,Opinion
 from flask_login import login_required
 from flask import request, make_response
 from werkzeug.urls import url_parse
@@ -51,7 +51,8 @@ def show_books():
 @app.route('/detail_book/<title>')
 def detail_book(title):
     book = Book.query.filter_by(title=title).first_or_404()
-    return render_template('detail_book.html', book=book)
+    result = db.session.query(Book.id, Opinion.body).filter(Opinion.book_id==book.id).filter(and_(Book.title==title)).all()
+    return render_template('detail_book.html', book=book, result=result)
 
 
 
