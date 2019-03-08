@@ -30,17 +30,31 @@ def login():
             flash('Invalid username or password')
             return redirect(url_for('login'))
         login_user(user)
-        
+
         userCookie = request.form['username']
         resp = make_response(render_template('index.html'))
         resp.set_cookie('user', userCookie)
         next_page = request.args.get('next')
 
-        if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('index')
-            return resp
-        return redirect(next_page)
+        if user.status == '0':
+            if not next_page or url_parse(next_page).netloc != '':
+                next_page = url_for('index')
+                return resp
+            return redirect(url_for('index'))
+        elif user.status == '1':
+            return redirect(url_for('admin'))
+
     return render_template('login.html', title='Sign In', form=form) 
+
+@app.route('/admin')
+@login_required
+def admin():
+    print(current_user)
+    if not current_user.is_authenticated():
+        return redirect('/login/')
+
+    return render_template('admin.html', title='admin')
+
 
 @app.route('/show_books', methods=['GET', 'POST'])
 def show_books():
